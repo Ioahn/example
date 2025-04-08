@@ -1,0 +1,1092 @@
+{
+  "openapi": "3.0.2",
+  "info": { "title": "Sensei API", "version": "0.1.0" },
+  "paths": {
+    "/api/auth/sms/send-code": {
+      "post": {
+        "tags": ["Auth API"],
+        "summary": "Send Sms Code",
+        "operationId": "send_sms_code_api_auth_sms_send_code_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_send_sms_code_api_auth_sms_send_code_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/sms/authenticate-by-code": {
+      "post": {
+        "tags": ["Auth API"],
+        "summary": "Authenticate By Code",
+        "operationId": "authenticate_by_code_api_auth_sms_authenticate_by_code_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_authenticate_by_code_api_auth_sms_authenticate_by_code_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessfulAuthenticationResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/email/send-code": {
+      "post": {
+        "tags": ["Auth API"],
+        "summary": "Send Email Code",
+        "operationId": "send_email_code_api_auth_email_send_code_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_send_email_code_api_auth_email_send_code_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/email/authenticate-by-code": {
+      "post": {
+        "tags": ["Auth API"],
+        "summary": "Authenticate By Email Code",
+        "operationId": "authenticate_by_email_code_api_auth_email_authenticate_by_code_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_authenticate_by_email_code_api_auth_email_authenticate_by_code_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessfulAuthenticationResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/topics": {
+      "get": {
+        "tags": ["Topics API"],
+        "summary": "Get Topics",
+        "operationId": "get_topics_api_topics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseTopicsResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/settings": {
+      "get": {
+        "tags": ["User Settings API"],
+        "summary": "Get User Settings",
+        "operationId": "get_user_settings_api_settings_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserSettings" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      },
+      "post": {
+        "tags": ["User Settings API"],
+        "summary": "Update User Settings",
+        "operationId": "update_user_settings_api_settings_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UserSettings" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/specialist/profile": {
+      "get": {
+        "tags": ["Specialist API"],
+        "summary": "Get Specialist Profile Data",
+        "operationId": "get_specialist_profile_data_api_specialist_profile_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialistProfileResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      },
+      "post": {
+        "tags": ["Specialist API"],
+        "summary": "Update Specialist Profile Data",
+        "operationId": "update_specialist_profile_data_api_specialist_profile_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistProfileUpdateRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/specialist/profile/update-avatar": {
+      "post": {
+        "tags": ["Specialist API"],
+        "summary": "Update Specialist Avatar",
+        "operationId": "update_specialist_avatar_api_specialist_profile_update_avatar_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_update_specialist_avatar_api_specialist_profile_update_avatar_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/specialist/profile/delete-avatar": {
+      "post": {
+        "tags": ["Specialist API"],
+        "summary": "Delete Specialist Avatar",
+        "operationId": "delete_specialist_avatar_api_specialist_profile_delete_avatar_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/specialist/profile/upload-document": {
+      "post": {
+        "tags": ["Specialist API"],
+        "summary": "Upload Specialist Document",
+        "operationId": "upload_specialist_document_api_specialist_profile_upload_document_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_specialist_document_api_specialist_profile_upload_document_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/specialist/profile/delete-document": {
+      "post": {
+        "tags": ["Specialist API"],
+        "summary": "Delete Specialist Document",
+        "operationId": "delete_specialist_document_api_specialist_profile_delete_document_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_delete_specialist_document_api_specialist_profile_delete_document_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/specialist/schedule/update-settings": {
+      "post": {
+        "tags": ["Specialist API"],
+        "summary": "Update Schedule Settings",
+        "operationId": "update_schedule_settings_api_specialist_schedule_update_settings_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ScheduleSettingsSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/specialist/schedule/exclude-slot": {
+      "post": {
+        "tags": ["Specialist API"],
+        "summary": "Exclude Schedule Slot",
+        "operationId": "exclude_schedule_slot_api_specialist_schedule_exclude_slot_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_exclude_schedule_slot_api_specialist_schedule_exclude_slot_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/specialist/schedule/move-slot": {
+      "post": {
+        "tags": ["Specialist API"],
+        "summary": "Move Schedule Slot",
+        "operationId": "move_schedule_slot_api_specialist_schedule_move_slot_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_move_schedule_slot_api_specialist_schedule_move_slot_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/specialist/": {
+      "get": {
+        "tags": ["Specialist API"],
+        "summary": "Get Cabinet Main Page",
+        "operationId": "get_cabinet_main_page_api_specialist__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MainCabResponseSchema"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    },
+    "/api/client/profile": {
+      "post": {
+        "tags": ["Client API"],
+        "summary": "Get Client Profile Data",
+        "operationId": "get_client_profile_data_api_client_profile_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_get_client_profile_data_api_client_profile_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "HTTPBearer": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccountType": {
+        "title": "AccountType",
+        "enum": ["specialist", "client"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "AreaType": {
+        "title": "AreaType",
+        "enum": ["coaching", "psychotherapy"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "BaseScheduleSlotSchema": {
+        "title": "BaseScheduleSlotSchema",
+        "required": ["id", "slot_date"],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "string", "format": "uuid" },
+          "slot_date": { "title": "Slot Date", "type": "integer" }
+        }
+      },
+      "BaseTopicSchema": {
+        "title": "BaseTopicSchema",
+        "required": ["id", "area", "name"],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "area": { "$ref": "#/components/schemas/AreaType" },
+          "name": { "title": "Name", "type": "string" },
+          "icon": { "title": "Icon", "type": "string" }
+        }
+      },
+      "BaseTopicsResponseSchema": {
+        "title": "BaseTopicsResponseSchema",
+        "type": "object",
+        "properties": {
+          "topics": {
+            "title": "Topics",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BaseTopicSchema" },
+            "default": []
+          }
+        }
+      },
+      "Body_authenticate_by_code_api_auth_sms_authenticate_by_code_post": {
+        "title": "Body_authenticate_by_code_api_auth_sms_authenticate_by_code_post",
+        "required": ["phone_number", "code", "account_type"],
+        "type": "object",
+        "properties": {
+          "phone_number": { "title": "Phone Number", "type": "string" },
+          "code": { "title": "Code", "type": "string" },
+          "account_type": { "$ref": "#/components/schemas/AccountType" }
+        }
+      },
+      "Body_authenticate_by_email_code_api_auth_email_authenticate_by_code_post": {
+        "title": "Body_authenticate_by_email_code_api_auth_email_authenticate_by_code_post",
+        "required": ["email", "code", "account_type"],
+        "type": "object",
+        "properties": {
+          "email": { "title": "Email", "type": "string" },
+          "code": { "title": "Code", "type": "string" },
+          "account_type": { "$ref": "#/components/schemas/AccountType" }
+        }
+      },
+      "Body_delete_specialist_document_api_specialist_profile_delete_document_post": {
+        "title": "Body_delete_specialist_document_api_specialist_profile_delete_document_post",
+        "required": ["document_id"],
+        "type": "object",
+        "properties": {
+          "document_id": { "title": "Document Id", "type": "string" }
+        }
+      },
+      "Body_exclude_schedule_slot_api_specialist_schedule_exclude_slot_post": {
+        "title": "Body_exclude_schedule_slot_api_specialist_schedule_exclude_slot_post",
+        "required": ["slot_id"],
+        "type": "object",
+        "properties": { "slot_id": { "title": "Slot Id", "type": "string" } }
+      },
+      "Body_get_client_profile_data_api_client_profile_post": {
+        "title": "Body_get_client_profile_data_api_client_profile_post",
+        "type": "object",
+        "properties": {
+          "first_name": { "title": "First Name", "type": "string" },
+          "last_name": { "title": "Last Name", "type": "string" },
+          "age": { "title": "Age", "type": "integer" },
+          "topic_ids": {
+            "title": "Topic Ids",
+            "type": "array",
+            "items": { "type": "string", "format": "uuid" }
+          }
+        }
+      },
+      "Body_move_schedule_slot_api_specialist_schedule_move_slot_post": {
+        "title": "Body_move_schedule_slot_api_specialist_schedule_move_slot_post",
+        "required": ["slot_id", "new_slot_date"],
+        "type": "object",
+        "properties": {
+          "slot_id": { "title": "Slot Id", "type": "string" },
+          "new_slot_date": { "title": "New Slot Date", "type": "integer" }
+        }
+      },
+      "Body_send_email_code_api_auth_email_send_code_post": {
+        "title": "Body_send_email_code_api_auth_email_send_code_post",
+        "required": ["email", "account_type"],
+        "type": "object",
+        "properties": {
+          "email": { "title": "Email", "type": "string" },
+          "account_type": { "$ref": "#/components/schemas/AccountType" }
+        }
+      },
+      "Body_send_sms_code_api_auth_sms_send_code_post": {
+        "title": "Body_send_sms_code_api_auth_sms_send_code_post",
+        "required": ["phone_number", "account_type"],
+        "type": "object",
+        "properties": {
+          "phone_number": { "title": "Phone Number", "type": "string" },
+          "account_type": { "$ref": "#/components/schemas/AccountType" }
+        }
+      },
+      "Body_update_specialist_avatar_api_specialist_profile_update_avatar_post": {
+        "title": "Body_update_specialist_avatar_api_specialist_profile_update_avatar_post",
+        "required": ["file"],
+        "type": "object",
+        "properties": {
+          "file": { "title": "File", "type": "string", "format": "binary" }
+        }
+      },
+      "Body_upload_specialist_document_api_specialist_profile_upload_document_post": {
+        "title": "Body_upload_specialist_document_api_specialist_profile_upload_document_post",
+        "required": ["file"],
+        "type": "object",
+        "properties": {
+          "file": { "title": "File", "type": "string", "format": "binary" }
+        }
+      },
+      "CareerEntry": {
+        "title": "CareerEntry",
+        "required": ["year", "name"],
+        "type": "object",
+        "properties": {
+          "year": { "title": "Year", "type": "integer" },
+          "name": { "title": "Name", "type": "string" }
+        }
+      },
+      "DocumentSchema": {
+        "title": "DocumentSchema",
+        "required": ["id", "url"],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "string", "format": "uuid" },
+          "url": { "title": "Url", "type": "string" }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ValidationError" }
+          }
+        }
+      },
+      "MainCabResponseSchema": {
+        "title": "MainCabResponseSchema",
+        "required": ["schedule", "personal_data", "notifications_data"],
+        "type": "object",
+        "properties": {
+          "schedule": {
+            "$ref": "#/components/schemas/SpecialistScheduleResponseSchema"
+          },
+          "personal_data": {
+            "$ref": "#/components/schemas/MinimalSpecialistResponseSchema"
+          },
+          "next_session": {
+            "$ref": "#/components/schemas/NextSessionResponseSchema"
+          },
+          "notifications_data": {
+            "$ref": "#/components/schemas/NotificationsSchema"
+          }
+        }
+      },
+      "MinimalClientResponseSchema": {
+        "title": "MinimalClientResponseSchema",
+        "required": ["id"],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "string", "format": "uuid" },
+          "avatar_url": { "title": "Avatar Url", "type": "string" },
+          "first_name": { "title": "First Name", "type": "string" },
+          "last_name": { "title": "Last Name", "type": "string" },
+          "age": { "title": "Age", "type": "integer" }
+        }
+      },
+      "MinimalSpecialistResponseSchema": {
+        "title": "MinimalSpecialistResponseSchema",
+        "required": ["id"],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "string", "format": "uuid" },
+          "specialization_title": {
+            "title": "Specialization Title",
+            "type": "string"
+          },
+          "first_name": { "title": "First Name", "type": "string" },
+          "last_name": { "title": "Last Name", "type": "string" },
+          "avatar_url": { "title": "Avatar Url", "type": "string" }
+        }
+      },
+      "NextSessionResponseSchema": {
+        "title": "NextSessionResponseSchema",
+        "required": ["id", "area", "utc_date"],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "string", "format": "uuid" },
+          "area": { "$ref": "#/components/schemas/AreaType" },
+          "utc_date": { "title": "Utc Date", "type": "integer" },
+          "is_able_to_enter": {
+            "title": "Is Able To Enter",
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "NotificationSchema": {
+        "title": "NotificationSchema",
+        "required": ["title"],
+        "type": "object",
+        "properties": {
+          "title": { "title": "Title", "type": "string" },
+          "description": { "title": "Description", "type": "string" },
+          "icon_url": { "title": "Icon Url", "type": "string" }
+        }
+      },
+      "NotificationsSchema": {
+        "title": "NotificationsSchema",
+        "required": ["notifications"],
+        "type": "object",
+        "properties": {
+          "has_new": {
+            "title": "Has New",
+            "type": "boolean",
+            "default": false
+          },
+          "notifications": {
+            "title": "Notifications",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationSchema" }
+          }
+        }
+      },
+      "ScheduleSettingsSchema": {
+        "title": "ScheduleSettingsSchema",
+        "required": ["working_week_days_hours"],
+        "type": "object",
+        "properties": {
+          "min_hours_to_appoint": {
+            "title": "Min Hours To Appoint",
+            "type": "integer",
+            "default": 24
+          },
+          "max_ahead_weeks_available_to_appoint": {
+            "title": "Max Ahead Weeks Available To Appoint",
+            "type": "integer",
+            "default": 4
+          },
+          "working_week_days_hours": {
+            "title": "Working Week Days Hours",
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": { "type": "integer" }
+            }
+          }
+        }
+      },
+      "ScheduleSlotSchema": {
+        "title": "ScheduleSlotSchema",
+        "required": [
+          "id",
+          "slot_date",
+          "is_available",
+          "is_excluded",
+          "is_booked"
+        ],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "string", "format": "uuid" },
+          "slot_date": { "title": "Slot Date", "type": "integer" },
+          "is_available": { "title": "Is Available", "type": "boolean" },
+          "is_excluded": { "title": "Is Excluded", "type": "boolean" },
+          "is_booked": { "title": "Is Booked", "type": "boolean" },
+          "is_booked_as": { "$ref": "#/components/schemas/AreaType" },
+          "client": {
+            "$ref": "#/components/schemas/MinimalClientResponseSchema"
+          }
+        }
+      },
+      "SessionsPackageSchema": {
+        "title": "SessionsPackageSchema",
+        "required": ["one_session_price", "full_price"],
+        "type": "object",
+        "properties": {
+          "one_session_price": {
+            "title": "One Session Price",
+            "type": "integer"
+          },
+          "number_of_sessions": {
+            "title": "Number Of Sessions",
+            "type": "integer",
+            "default": 10
+          },
+          "discount_percentage": {
+            "title": "Discount Percentage",
+            "type": "number",
+            "default": 10.0
+          },
+          "full_price": { "title": "Full Price", "type": "integer" }
+        }
+      },
+      "SessionsPriceOptionsSchema": {
+        "title": "SessionsPriceOptionsSchema",
+        "required": ["one_session_price"],
+        "type": "object",
+        "properties": {
+          "one_session_minutes": {
+            "title": "One Session Minutes",
+            "type": "integer",
+            "default": 50
+          },
+          "one_session_price": {
+            "title": "One Session Price",
+            "type": "integer"
+          },
+          "packages": {
+            "title": "Packages",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SessionsPackageSchema" },
+            "default": []
+          }
+        }
+      },
+      "SpecialistLevel": {
+        "title": "SpecialistLevel",
+        "enum": ["specialist", "master", "expert"],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "SpecialistProfileResponseSchema": {
+        "title": "SpecialistProfileResponseSchema",
+        "required": ["id", "level", "working_areas", "price_options"],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "string", "format": "uuid" },
+          "specialization_title": {
+            "title": "Specialization Title",
+            "type": "string"
+          },
+          "first_name": { "title": "First Name", "type": "string" },
+          "last_name": { "title": "Last Name", "type": "string" },
+          "avatar_url": { "title": "Avatar Url", "type": "string" },
+          "about_me": { "title": "About Me", "type": "string" },
+          "education": {
+            "title": "Education",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CareerEntry" },
+            "default": []
+          },
+          "experience": {
+            "title": "Experience",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CareerEntry" },
+            "default": []
+          },
+          "level": { "$ref": "#/components/schemas/SpecialistLevel" },
+          "working_areas": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AreaType" }
+          },
+          "topics": {
+            "title": "Topics",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TopicSchema" },
+            "default": []
+          },
+          "available_slots": {
+            "title": "Available Slots",
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": { "$ref": "#/components/schemas/BaseScheduleSlotSchema" }
+            },
+            "default": []
+          },
+          "price_options": {
+            "title": "Price Options",
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SessionsPriceOptionsSchema"
+            }
+          }
+        }
+      },
+      "SpecialistProfileUpdateRequestSchema": {
+        "title": "SpecialistProfileUpdateRequestSchema",
+        "type": "object",
+        "properties": {
+          "specialization_title": {
+            "title": "Specialization Title",
+            "type": "string"
+          },
+          "first_name": { "title": "First Name", "type": "string" },
+          "last_name": { "title": "Last Name", "type": "string" },
+          "avatar_url": { "title": "Avatar Url", "type": "string" },
+          "about_me": { "title": "About Me", "type": "string" },
+          "education": {
+            "title": "Education",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CareerEntry" }
+          },
+          "experience": {
+            "title": "Experience",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/CareerEntry" }
+          },
+          "documents": {
+            "title": "Documents",
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/DocumentSchema" },
+            "default": []
+          },
+          "topic_ids": {
+            "title": "Topic Ids",
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "working_areas": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AreaType" }
+          }
+        }
+      },
+      "SpecialistScheduleResponseSchema": {
+        "title": "SpecialistScheduleResponseSchema",
+        "required": ["settings"],
+        "type": "object",
+        "properties": {
+          "settings": { "$ref": "#/components/schemas/ScheduleSettingsSchema" },
+          "all_schedule_slots": {
+            "title": "All Schedule Slots",
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": { "$ref": "#/components/schemas/ScheduleSlotSchema" }
+            },
+            "default": {}
+          }
+        }
+      },
+      "SuccessResponse": {
+        "title": "SuccessResponse",
+        "type": "object",
+        "properties": {
+          "success": { "title": "Success", "type": "boolean", "default": true }
+        }
+      },
+      "SuccessfulAuthenticationResponseSchema": {
+        "title": "SuccessfulAuthenticationResponseSchema",
+        "required": ["auth_token", "is_onboarding"],
+        "type": "object",
+        "properties": {
+          "auth_token": { "title": "Auth Token", "type": "string" },
+          "is_onboarding": { "title": "Is Onboarding", "type": "boolean" }
+        }
+      },
+      "TopicSchema": {
+        "title": "TopicSchema",
+        "required": ["id", "area", "name", "is_chosen"],
+        "type": "object",
+        "properties": {
+          "id": { "title": "Id", "type": "string" },
+          "area": { "$ref": "#/components/schemas/AreaType" },
+          "name": { "title": "Name", "type": "string" },
+          "icon": { "title": "Icon", "type": "string" },
+          "is_chosen": { "title": "Is Chosen", "type": "boolean" }
+        }
+      },
+      "UserNotificationSettings": {
+        "title": "UserNotificationSettings",
+        "type": "object",
+        "properties": {}
+      },
+      "UserSettings": {
+        "title": "UserSettings",
+        "type": "object",
+        "properties": {
+          "timezone": {
+            "title": "Timezone",
+            "type": "string",
+            "default": "Europe/Moscow"
+          },
+          "notifications": {
+            "title": "Notifications",
+            "allOf": [
+              { "$ref": "#/components/schemas/UserNotificationSettings" }
+            ],
+            "default": {}
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": ["loc", "msg", "type"],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] }
+          },
+          "msg": { "title": "Message", "type": "string" },
+          "type": { "title": "Error Type", "type": "string" }
+        }
+      }
+    },
+    "securitySchemes": { "HTTPBearer": { "type": "http", "scheme": "bearer" } }
+  }
+}

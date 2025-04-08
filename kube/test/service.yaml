@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sensea-frontend-svc
+  namespace: test
+  labels:
+    app: sensea-frontend-app
+spec:
+  type: ClusterIP
+  selector:
+    app: sensea-frontend-app
+    tier: web
+  ports:
+    - port: 80
+      targetPort: 3000

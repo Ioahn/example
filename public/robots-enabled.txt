@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://sense-a.ru
+
+# Sitemaps
+Sitemap: https://sense-a.ru/sitemap.xml

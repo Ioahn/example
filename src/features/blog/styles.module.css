@@ -1,0 +1,25 @@
+.radial_gradient_primary {
+  background: linear-gradient(to left, #35c0b7 30%, #f6f3f0),
+    linear-gradient(to top, #f6f3f0 10%, transparent);
+  background-blend-mode: overlay;
+}
+
+.radial_gradient_secondary {
+  background: linear-gradient(to left, #35c0b7 30%, #ffffff),
+    linear-gradient(to top, #ffffff 10%, transparent);
+  background-blend-mode: overlay;
+}
+
+.radial_gradient_primary_md {
+  background: linear-gradient(to bottom, #35c0b7 70%, #f6f3f0),
+    linear-gradient(to right, #f6f3f0 10%, #35c0b7, #f6f3f0 90%),
+    linear-gradient(to top, #f6f3f0 10%, transparent);
+  background-blend-mode: overlay;
+}
+
+.radial_gradient_secondary_md {
+  background: linear-gradient(to bottom, #35c0b7 70%, #ffffff),
+    linear-gradient(to right, #ffffff 10%, #35c0b7, #ffffff 90%),
+    linear-gradient(to top, #ffffff 10%, transparent);
+  background-blend-mode: overlay;
+}

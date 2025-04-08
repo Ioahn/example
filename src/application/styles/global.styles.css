@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --colored-svg: none;
+  font-size: 16px;
+
+  /*@screen sm {*/
+  /*  font-size: clamp(12px, 1vw, 16px);*/
+  /*}*/
+}
+
+@layer components {
+  .keyboard-focus {
+    @apply outline-none data-[keyboard-focus=true]:outline-offset-4 data-[keyboard-focus=true]:outline-content-tertiary/50;
+  }
+
+  /*взято с https://isotropic.co/tool/hex-color-to-css-filter/*/
+  .svg-accent-vivid {
+    filter: invert(53%) sepia(44%) saturate(4608%) hue-rotate(344deg)
+      brightness(100%) contrast(104%);
+  }
+
+  .svg-accent {
+    filter: invert(63%) sepia(16%) saturate(1501%) hue-rotate(127deg)
+      brightness(98%) contrast(98%);
+  }
+
+  .animated-underline {
+    @apply pointer-events-none absolute rounded-lg border border-border-active bg-transparent outline outline-[3px] outline-border-primary;
+  }
+
+  /** Шрифты */
+  .font-grain {
+    @apply text-3xs/[1.2] sm:text-xs;
+  }
+
+  .font-base {
+    @apply text-2xs sm:text-2md/[1.2];
+  }
+
+  .font-base-semibold {
+    @apply font-base font-semibold;
+  }
+
+  .font-stone {
+    @apply text-base/[1.2] sm:text-3md/[1.4];
+  }
+
+  .font-stone-semibold {
+    @apply font-stone font-semibold;
+  }
+
+  .font-rock {
+    @apply text-base/[1.2] sm:text-2lg/[1.2];
+  }
+
+  .font-rock-semibold {
+    @apply text-base/[1.2] font-semibold sm:text-2lg/[normal];
+  }
+
+  .font-galaxy {
+    @apply text-3lg/[1.2] font-semibold sm:text-5lg/[normal];
+  }
+
+  .font-galaxy-semibold {
+    @apply font-galaxy font-semibold;
+  }
+
+  .font-universe {
+    @apply text-4lg/[normal] sm:text-2xl/[1.2];
+  }
+
+  .font-universe-semibold {
+    @apply font-universe font-semibold;
+  }
+
+  /**Space*/
+  .space-xl {
+    @apply h-[60px];
+  }
+
+  .space-lg {
+    @apply h-[24px];
+  }
+
+  .blog {
+    @apply font-base;
+  }
+
+  .blog h1 {
+    @apply font-universe-semibold;
+  }
+
+  .blog h2 {
+    @apply font-rock-semibold;
+  }
+
+  .blog p {
+  }
+
+  .blog ul,
+  .blog ol {
+    @apply flex list-none flex-col gap-6;
+  }
+
+  .blog li {
+    @apply flex gap-4 before:mt-1 before:h-2 before:w-2 before:flex-shrink-0 before:rounded-full before:bg-content-accent before:outline before:outline-content-tertiary/20 md:before:mt-2;
+  }
+
+  .blog blockquote {
+    @apply font-stone-semibold relative py-4 pl-4 text-content-primary before:absolute before:bottom-0 before:left-0 before:top-0 before:w-2 before:bg-content-accent md:ml-8;
+  }
+
+  .blog image {
+    @apply aspect-h-9 aspect-w-16 relative w-full;
+  }
+
+  /*.blog img {*/
+  /*  @apply absolute inset-0 object-cover object-top;*/
+  /*}*/
+
+  .blog .cta {
+    @apply flex items-center justify-between gap-4 border-2 border-content-accent p-4 max-md:flex-col md:gap-16 md:px-10 md:py-8;
+  }
+
+  .blog .cta .button {
+    @apply font-stone-semibold block shrink-0 items-center justify-center gap-2 rounded-2xl bg-content-accent px-8 py-3 text-center text-content-inverse no-underline outline-none transition-all hover:no-underline hover:underline-offset-1 active:bg-bg-inverse-primary enabled:hover:bg-content-primary enabled:hover:opacity-80 enabled:active:opacity-100 disabled:opacity-50 aria-pressed:opacity-100 max-md:w-full md:max-w-fit;
+  }
+
+  .blog .cta .title {
+    @apply font-stone-semibold;
+  }
+}

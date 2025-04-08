@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sensea-frontend-app
+  namespace: test
+  labels:
+    app: sensea-frontend-app
+spec:
+  selector:
+    matchLabels:
+      app: sensea-frontend-app
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: sensea-frontend-app
+        tier: web
+    spec:
+      containers:
+        - name: sensea-frontend-app
+          image: cr.yandex/crp2vjg5gtrm93qs2bjj/frontend/sensea-frontend:IMAGE_TAG
+          ports:
+            - containerPort: 3000
+          env:
+            - name: ENV
+              value: staging

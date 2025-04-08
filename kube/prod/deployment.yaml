@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-nextjs
+  namespace: frontend
+  labels:
+    app: frontend-nextjs
+spec:
+  selector:
+    matchLabels:
+      app: frontend-nextjs
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: frontend-nextjs
+        tier: web
+    spec:
+      containers:
+        - name: app
+          image: cr.yandex/crp7d55gj77ghmfnigg5/frontend/:IMAGE_TAG
+          ports:
+            - containerPort: 3000
+          env:
+            - name: ENV
+              value: production

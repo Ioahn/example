@@ -1,0 +1,119 @@
+stages:
+  - build
+  #  - lint
+  #  - test
+  - deploy
+
+variables:
+  DOCKER_REPO: $CI_REGISTRY_IMAGE
+  DOCKER_TAG: $CI_COMMIT_SHORT_SHA
+  DOCKER_CONTEXT: $CI_PROJECT_DIR
+  DOCKER_FILE: ./Dockerfile
+
+.staging:
+  variables:
+    CI_REGISTRY:
+    KUBE_TOKEN: $STAGE_KUBE_TOKEN
+    KUBE_URL: $STAGE_KUBE_URL
+    KUBE_NAMESPACE: 'test'
+    CI_REGISTRY_KEY: $STAGE_CI_REGISTRY_KEY
+  tags:
+    - develop
+
+.production:
+  variables:
+    KUBE_TOKEN: $PROD_KUBE_TOKEN
+    KUBE_URL: $PROD_KUBE_URL
+    KUBE_NAMESPACE: 'backend'
+    CI_REGISTRY_KEY: $PROD_CI_REGISTRY_KEY
+    CI_REGISTRY:
+  tags:
+    - master
+
+
+.build_kaniko_cache:
+  image:
+    name: gcr.io/kaniko-project/executor:v1.23.0-debug
+    entrypoint: ['']
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo -n "json_key:${CI_REGISTRY_KEY}" | base64 | tr -d '\n' )\"}}}" > /kaniko/.docker/config.json
+    - >-
+    - /kaniko/executor
+      --dockerfile=$DOCKER_FILE
+      --context=$DOCKER_CONTEXT
+      --destination=$DOCKER_REPO:$DOCKER_TAG
+      --cleanup
+      --cache=true
+      --compressed-caching=false
+      --snapshot-mode=redo
+      --cache-copy-layers
+      --use-new-run
+      --label "${CI_PROJECT_NAME}.author=$GITLAB_USER_NAME"
+      --label "${CI_PROJECT_NAME}.job_url=$CI_JOB_URL"
+      --label "${CI_PROJECT_NAME}.commit_title=$CI_COMMIT_TITLE"
+      --label "${CI_PROJECT_NAME}.runner=$CI_RUNNER_ID"
+      --label "${CI_PROJECT_NAME}.pipeline=$CI_PIPELINE_URL"
+      --build-arg ENV=$ENV
+      --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+      --build-arg SENTRY_ORG=$SENTRY_ORG
+      --build-arg SENTRY_PROJECT=$SENTRY_PROJECT
+      $(env | { grep "BUILD_ARG" || true; } |  sed "s/BUILD\_ARG\_//" | awk '{print "--build-arg " $1}')
+    - mkdir -p /workspace  # solves problem https://docs.gitlab.com/runner/executors/kubernetes/index.html#use-kaniko-to-build-docker-images
+
+.deploy_kube:
+  image: gcr.io/cloud-builders/kubectl:latest
+  script:
+    - kubectl config set-cluster k8s --server="$KUBE_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials admin --token="$KUBE_TOKEN"
+    - kubectl config set-context default --cluster=k8s --user=admin
+    - kubectl config use-context default
+    - find kube -type f | xargs sed -i "s/IMAGE_TAG/$CI_COMMIT_SHORT_SHA/"
+    - kubectl apply -f $KUBE_YAML_PATH
+
+build_stage:
+  stage: build
+  variables:
+    CI_REGISTRY_IMAGE:
+    ENV: staging
+  extends:
+    - .build_kaniko_cache
+    - .staging
+  only:
+    - develop
+
+
+build_prod:
+  stage: build
+  variables:
+    CI_REGISTRY_IMAGE:
+    ENV: production
+  extends:
+    - .build_kaniko_cache
+    - .production
+  only:
+    - master
+
+
+deploy-stage:
+  stage: deploy
+  variables:
+    KUBE_YAML_PATH: 'kube/test/'
+    KUBE_NAMESPACE: 'test'
+  extends:
+    - .deploy_kube
+    - .staging
+  only:
+    - develop
+
+
+deploy-prod:
+  stage: deploy
+  variables:
+    KUBE_YAML_PATH: 'kube/prod/'
+    KUBE_NAMESPACE: 'frontend'
+  extends:
+    - .deploy_kube
+    - .production
+  only:
+    - master
